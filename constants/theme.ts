@@ -50,12 +50,10 @@ export const Colors = {
     tabIconDefault: Palette.textSubtle,
     tabIconSelected: Palette.accent,
 
-    tempo: {
-      onTempo: Palette.onTempo,
-      warning: Palette.warning,
-      danger: Palette.danger,
-      safe: Palette.safe,
-    },
+    onTempo: Palette.onTempo,
+    warningTempo: Palette.warning,
+    dangerTempo: Palette.danger,
+    safeTempo: Palette.safe,
   },
   dark: {
     background: Palette.bg,
@@ -77,12 +75,10 @@ export const Colors = {
     tabIconDefault: Palette.textSubtle,
     tabIconSelected: Palette.accent,
 
-    tempo: {
-      onTempo: Palette.onTempo,
-      warning: Palette.warning,
-      danger: Palette.danger,
-      safe: Palette.safe,
-    },
+    onTempo: Palette.onTempo,
+    warningTempo: Palette.warning,
+    dangerTempo: Palette.danger,
+    safeTempo: Palette.safe,
   },
 } as const;
 
