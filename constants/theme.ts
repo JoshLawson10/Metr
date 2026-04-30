@@ -117,6 +117,9 @@ export const TypeScale = {
   p: 14,
   label: 12,
   hint: 11,
+
+  bpmMain: 180,
+  bpmFull: 300,
 } as const;
 
 // ─── Spacing ─────────────────────────────────────────────────────────────────

@@ -55,6 +55,16 @@ const styles = StyleSheet.create({
     fontSize: TypeScale.p,
     lineHeight: TypeScale.p * 1.2,
   },
+  bpmMain: {
+    fontSize: TypeScale.bpmMain,
+    fontWeight: "bold",
+    lineHeight: TypeScale.bpmMain * 1.2,
+  },
+  bpmFull: {
+    fontSize: TypeScale.bpmFull,
+    fontWeight: "bold",
+    lineHeight: TypeScale.bpmFull * 1.2,
+  },
   label: {
     fontSize: TypeScale.label,
     fontWeight: "600",
