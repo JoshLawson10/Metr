@@ -102,7 +102,11 @@ export default function HomeScreen() {
           </ThemedText>
         </View>
       </View>
-      <ThemedText type="monoBold" size="bpmMain" style={styles.bpmReadout}>
+      <ThemedText
+        type="monoBold"
+        size="bpmMain"
+        style={[{ color: useThemeColor({}, driftColor) }, styles.bpmReadout]}
+      >
         {bpm}
       </ThemedText>
       <ThemedText
