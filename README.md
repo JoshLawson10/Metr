@@ -1,50 +1,71 @@
-# Welcome to your Expo app 👋
+# Metr
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A real-time tempo detection app for worship musicians. Metr listens via the device microphone and provides live BPM feedback, alerting musicians when they are speeding up or slowing down — without the complexity of a traditional click track.
 
-## Get started
+Built with React Native + Expo as part of an HSC Design & Technology Major Project.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## Getting Started
 
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+Install dependencies:
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Start the development server:
 
-## Learn more
+```bash
+npx expo start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+From there you can open the app in an iOS simulator, Android emulator, or on a physical device via Expo Go.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+---
 
-## Join the community
+## Project Structure
 
-Join our community of developers creating universal apps.
+```
+app/          # Screens and navigation (Expo Router)
+components/   # Reusable UI components
+constants/    # Theme, colours, fonts
+assets/       # Images, icons, fonts
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+---
+
+## Commit Convention
+
+This project uses [Conventional Commits](https://www.conventionalcommits.org/). All commit messages should follow this format:
+
+```
+<type>(<scope>): <short description>
+```
+
+### Types
+
+| Type | Use for |
+|------|---------|
+| `feat` | A new feature or UI component |
+| `fix` | A bug fix |
+| `refactor` | Code restructure with no behaviour change |
+| `style` | Visual/UI changes (colours, spacing, fonts) |
+| `test` | Adding or updating tests |
+| `chore` | Config, dependencies, tooling |
+| `docs` | README or documentation updates |
+
+### Examples
+
+```
+feat(detection): implement onset detection algorithm
+fix(ui): correct BPM display not updating on tempo change
+style(main-screen): apply glassmorphic card styling
+chore(deps): upgrade expo to SDK 53
+```
+
+### Scopes
+
+Use short, consistent scope names that map to areas of the project — e.g. `detection`, `ui`, `main-screen`, `setlist`, `audio`, `deps`.
+
+---
