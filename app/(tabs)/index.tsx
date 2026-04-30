@@ -1,4 +1,4 @@
-import React, { use, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { ThemedView } from "@/components/themed-view";
 import { ThemedText } from "@/components/themed-text";
@@ -12,6 +12,50 @@ import Animated, {
   withSequence,
   Easing,
 } from "react-native-reanimated";
+
+type TempoDrift = "speeding-up" | "slowing-down" | "maintaining";
+
+function getDrift(bpm: number, targetBPM: number): TempoDrift {
+  const variance = bpm - targetBPM;
+  const threshold = 3;
+
+  if (Math.abs(variance) <= threshold) {
+    return "maintaining";
+  } else if (variance > threshold) {
+    return "speeding-up";
+  } else {
+    return "slowing-down";
+  }
+}
+
+function getDriftColor(
+  drift: TempoDrift,
+): keyof typeof Colors.light & keyof typeof Colors.dark {
+  switch (drift) {
+    case "speeding-up":
+      return "warningTempo";
+    case "slowing-down":
+      return "dangerTempo";
+    case "maintaining":
+      return "safeTempo";
+  }
+}
+
+function getDriftLabel(drift: TempoDrift) {
+  switch (drift) {
+    case "speeding-up":
+      return "↑ Speeding Up";
+    case "slowing-down":
+      return "↓ Slowing Down";
+    case "maintaining":
+      return "Steady";
+  }
+}
+
+function getCurrentBPM() {
+  // Placeholder for actual BPM fetching logic
+  return 122;
+}
 
 // ─── Live pulse dot ──────────────────────────────────────────────────────────
 function LiveDot() {
@@ -39,6 +83,12 @@ function LiveDot() {
 }
 
 export default function HomeScreen() {
+  const [bpm, setBpm] = useState(getCurrentBPM());
+  const [targetBPM, setTargetBPM] = useState(120);
+  const [drift, setDrift] = useState(getDrift(bpm, targetBPM));
+  const [driftColor, setDriftColor] = useState(getDriftColor(drift));
+  const [driftLabel, setDriftLabel] = useState(getDriftLabel(drift));
+
   return (
     <ThemedView style={styles.container}>
       <View style={styles.header}>
@@ -52,7 +102,17 @@ export default function HomeScreen() {
           </ThemedText>
         </View>
       </View>
-      <ThemedText size="h1">Home Screen</ThemedText>
+      <ThemedText type="monoBold" size="bpmMain" style={styles.bpmReadout}>
+        {bpm}
+      </ThemedText>
+      <ThemedText
+        type="mono"
+        size="p"
+        style={{ color: useThemeColor({}, driftColor) }}
+      >
+        {driftLabel}
+      </ThemedText>
+      <View></View>
     </ThemedView>
   );
 }
@@ -64,7 +124,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "column",
     paddingHorizontal: Spacing.xl,
-    overflow: "hidden",
   },
 
   header: {
@@ -84,5 +143,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.sm,
+  },
+
+  bpmReadout: {
+    marginTop: Spacing.xxl,
   },
 });
