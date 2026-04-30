@@ -111,10 +111,6 @@ export const Fonts = {
 
 // ─── Type scale ──────────────────────────────────────────────────────────────
 export const TypeScale = {
-  bpmHero: 96,
-  bpmLarge: 64,
-  bpmSmall: 32,
-
   h1: 28,
   h2: 22,
   h3: 18,

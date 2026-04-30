@@ -1,27 +1,28 @@
 import { StyleSheet, Text, type TextProps } from "react-native";
 
 import { useThemeColor } from "@/hooks/use-theme-color";
-import { Fonts, TypeScale } from "@/constants/theme";
+import { Colors, Fonts, TypeScale } from "@/constants/theme";
 
 export type ThemedTextProps = TextProps & {
-  lightColor?: string;
-  darkColor?: string;
-  type?: "body" | "mono" | "monoBold";
-  size?: "h1" | "h2" | "h3" | "p" | "label" | "hint";
+  color?: keyof typeof Colors.light & keyof typeof Colors.dark;
+  type?: keyof typeof Fonts;
+  size?: keyof typeof TypeScale;
 };
 
 export function ThemedText({
   style,
-  lightColor,
-  darkColor,
+  color = "text",
   type = "body",
   size = "p",
   ...rest
 }: ThemedTextProps) {
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
+  const themeColor = useThemeColor({}, color);
 
   return (
-    <Text style={[{ color }, styles[type], styles[size], style]} {...rest} />
+    <Text
+      style={[{ color: themeColor }, styles[type], styles[size], style]}
+      {...rest}
+    />
   );
 }
 
