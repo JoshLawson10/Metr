@@ -118,7 +118,7 @@ export const TypeScale = {
   h1: 28,
   h2: 22,
   h3: 18,
-  body: 14,
+  p: 14,
   label: 12,
   hint: 11,
 } as const;

@@ -1,12 +1,13 @@
 import { StyleSheet, Text, type TextProps } from "react-native";
 
 import { useThemeColor } from "@/hooks/use-theme-color";
-import { TypeScale } from "@/constants/theme";
+import { Fonts, TypeScale } from "@/constants/theme";
 
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: "h1" | "h2" | "h3" | "body" | "label" | "hint";
+  type?: "body" | "mono" | "monoBold";
+  size?: "h1" | "h2" | "h3" | "p" | "label" | "hint";
 };
 
 export function ThemedText({
@@ -14,28 +15,26 @@ export function ThemedText({
   lightColor,
   darkColor,
   type = "body",
+  size = "p",
   ...rest
 }: ThemedTextProps) {
   const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
 
   return (
-    <Text
-      style={[
-        { color },
-        type === "h1" ? styles.h1 : undefined,
-        type === "h2" ? styles.h2 : undefined,
-        type === "h3" ? styles.h3 : undefined,
-        type === "body" ? styles.body : undefined,
-        type === "label" ? styles.label : undefined,
-        type === "hint" ? styles.hint : undefined,
-        style,
-      ]}
-      {...rest}
-    />
+    <Text style={[{ color }, styles[type], styles[size], style]} {...rest} />
   );
 }
 
 const styles = StyleSheet.create({
+  body: {
+    fontFamily: Fonts.body,
+  },
+  mono: {
+    fontFamily: Fonts.mono,
+  },
+  monoBold: {
+    fontFamily: Fonts.monoBold,
+  },
   h1: {
     fontSize: TypeScale.h1,
     fontWeight: "bold",
@@ -51,9 +50,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     lineHeight: TypeScale.h3 * 1.2,
   },
-  body: {
-    fontSize: TypeScale.body,
-    lineHeight: TypeScale.body * 1.2,
+  p: {
+    fontSize: TypeScale.p,
+    lineHeight: TypeScale.p * 1.2,
   },
   label: {
     fontSize: TypeScale.label,
