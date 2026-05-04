@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { ThemedView } from "@/components/themed-view";
 import { ThemedText } from "@/components/themed-text";
 import { useThemeColor } from "@/hooks/use-theme-color";
@@ -12,6 +12,9 @@ import Animated, {
   withSequence,
   Easing,
 } from "react-native-reanimated";
+import { LinearGradient } from "expo-linear-gradient";
+import * as Haptics from "expo-haptics";
+import { Play, Pause, ChevronLeft, ChevronRight } from "lucide-react-native";
 
 type TempoDrift = "speeding-up" | "slowing-down" | "maintaining";
 
@@ -88,6 +91,23 @@ export default function HomeScreen() {
   const [drift, setDrift] = useState(getDrift(bpm, targetBPM));
   const [driftColor, setDriftColor] = useState(getDriftColor(drift));
   const [driftLabel, setDriftLabel] = useState(getDriftLabel(drift));
+  const [isDetecting, setIsDetecting] = useState(false);
+
+  const handlePress = (action: "prev" | "play-pause" | "next") => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    switch (action) {
+      case "prev":
+        console.log("Previous song");
+        break;
+      case "play-pause":
+        setIsDetecting((prev) => !prev);
+        console.log(isDetecting ? "Pausing detection" : "Starting detection");
+        break;
+      case "next":
+        console.log("Next song");
+        break;
+    }
+  };
 
   return (
     <ThemedView style={styles.container}>
@@ -116,7 +136,51 @@ export default function HomeScreen() {
       >
         {driftLabel}
       </ThemedText>
-      <View></View>
+      <ThemedText type="body" size="h2" style={styles.songName}>
+        Song Name
+      </ThemedText>
+      <View style={styles.controlRow}>
+        <TouchableOpacity
+          style={[
+            styles.controlBtn,
+            { backgroundColor: useThemeColor({}, "glass") },
+          ]}
+          onPress={() => handlePress("prev")}
+          activeOpacity={0.7}
+        >
+          <ChevronLeft size={16} color="white" strokeWidth={1} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => handlePress("play-pause")}
+          activeOpacity={0.85}
+        >
+          <LinearGradient
+            colors={[
+              useThemeColor({}, "tint"),
+              useThemeColor({}, "tintSecondary"),
+            ]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.playBtn}
+          >
+            {isDetecting ? (
+              <Pause size={24} color="white" fill="white" />
+            ) : (
+              <Play size={24} color="white" fill="white" />
+            )}
+          </LinearGradient>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.controlBtn,
+            { backgroundColor: useThemeColor({}, "glass") },
+          ]}
+          onPress={() => handlePress("next")}
+          activeOpacity={0.7}
+        >
+          <ChevronRight size={16} color="white" strokeWidth={1} />
+        </TouchableOpacity>
+      </View>
     </ThemedView>
   );
 }
@@ -151,5 +215,48 @@ const styles = StyleSheet.create({
 
   bpmReadout: {
     marginTop: Spacing.xxl,
+  },
+
+  songName: {
+    marginTop: Spacing.xxl,
+    textAlign: "center",
+  },
+
+  controlRow: {
+    marginTop: Spacing.xxl,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: Spacing.xl,
+    width: "100%",
+  },
+
+  controlBtn: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  playBtn: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  controlIcon: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+
+  playIcon: {
+    fontSize: 24,
+    fontWeight: "bold",
   },
 });
