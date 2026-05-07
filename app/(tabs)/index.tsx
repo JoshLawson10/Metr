@@ -57,14 +57,20 @@ function DriftLabel({ drift }: { drift: TempoDrift }): JSX.Element {
   const iconProps = { size: TypeScale.p, color, strokeWidth: 1.5 };
 
   const icon =
-    drift === "speeding-up" ? <TrendingUp {...iconProps} /> :
-    drift === "slowing-down" ? <TrendingDown {...iconProps} /> :
-    <Minus {...iconProps} />;
+    drift === "speeding-up" ? (
+      <TrendingUp {...iconProps} />
+    ) : drift === "slowing-down" ? (
+      <TrendingDown {...iconProps} />
+    ) : (
+      <Minus {...iconProps} />
+    );
 
   const label =
-    drift === "speeding-up" ? "Speeding Up" :
-    drift === "slowing-down" ? "Slowing Down" :
-    "Steady";
+    drift === "speeding-up"
+      ? "Speeding Up"
+      : drift === "slowing-down"
+        ? "Slowing Down"
+        : "Steady";
 
   return (
     <View style={styles.driftRow}>
@@ -131,6 +137,7 @@ export default function HomeScreen() {
 
   return (
     <ThemedView style={styles.container}>
+      {/* ===== Header ===== */}
       <View style={styles.header}>
         <ThemedText color="textSecondary" type="mono" size="p">
           LISTENING
@@ -142,6 +149,8 @@ export default function HomeScreen() {
           </ThemedText>
         </View>
       </View>
+
+      {/* ===== BPM Readout ===== */}
       <ThemedText
         type="monoBold"
         size="bpmMain"
@@ -149,10 +158,16 @@ export default function HomeScreen() {
       >
         {bpm}
       </ThemedText>
+
+      {/* ===== Tempo Drift ===== */}
       <DriftLabel drift={drift} />
+
+      {/* ===== Song Name ===== */}
       <ThemedText type="body" size="h2" style={styles.songName}>
         Song Name
       </ThemedText>
+
+      {/* ===== Song Controls ===== */}
       <View style={styles.controlRow}>
         <TouchableOpacity
           style={[
