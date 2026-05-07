@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, JSX } from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { ThemedView } from "@/components/themed-view";
 import { ThemedText } from "@/components/themed-text";
 import { useThemeColor } from "@/hooks/use-theme-color";
-import { Colors, Spacing } from "@/constants/theme";
+import { Colors, Spacing, TypeScale } from "@/constants/theme";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -14,7 +14,15 @@ import Animated, {
 } from "react-native-reanimated";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Haptics from "expo-haptics";
-import { Play, Pause, ChevronLeft, ChevronRight } from "lucide-react-native";
+import {
+  Play,
+  Pause,
+  ChevronLeft,
+  ChevronRight,
+  TrendingDown,
+  TrendingUp,
+  Minus,
+} from "lucide-react-native";
 
 type TempoDrift = "speeding-up" | "slowing-down" | "maintaining";
 
@@ -44,15 +52,28 @@ function getDriftColor(
   }
 }
 
-function getDriftLabel(drift: TempoDrift) {
-  switch (drift) {
-    case "speeding-up":
-      return "↑ Speeding Up";
-    case "slowing-down":
-      return "↓ Slowing Down";
-    case "maintaining":
-      return "Steady";
-  }
+function DriftLabel({ drift }: { drift: TempoDrift }): JSX.Element {
+  const color = useThemeColor({}, "textSecondary");
+  const iconProps = { size: TypeScale.p, color, strokeWidth: 1.5 };
+
+  const icon =
+    drift === "speeding-up" ? <TrendingUp {...iconProps} /> :
+    drift === "slowing-down" ? <TrendingDown {...iconProps} /> :
+    <Minus {...iconProps} />;
+
+  const label =
+    drift === "speeding-up" ? "Speeding Up" :
+    drift === "slowing-down" ? "Slowing Down" :
+    "Steady";
+
+  return (
+    <View style={styles.driftRow}>
+      {icon}
+      <ThemedText type="mono" size="p" color="textSecondary">
+        {label}
+      </ThemedText>
+    </View>
+  );
 }
 
 function getCurrentBPM() {
@@ -90,7 +111,6 @@ export default function HomeScreen() {
   const [targetBPM, setTargetBPM] = useState(120);
   const [drift, setDrift] = useState(getDrift(bpm, targetBPM));
   const [driftColor, setDriftColor] = useState(getDriftColor(drift));
-  const [driftLabel, setDriftLabel] = useState(getDriftLabel(drift));
   const [isDetecting, setIsDetecting] = useState(false);
 
   const handlePress = (action: "prev" | "play-pause" | "next") => {
@@ -129,13 +149,7 @@ export default function HomeScreen() {
       >
         {bpm}
       </ThemedText>
-      <ThemedText
-        type="mono"
-        size="p"
-        style={{ color: useThemeColor({}, driftColor) }}
-      >
-        {driftLabel}
-      </ThemedText>
+      <DriftLabel drift={drift} />
       <ThemedText type="body" size="h2" style={styles.songName}>
         Song Name
       </ThemedText>
@@ -215,6 +229,18 @@ const styles = StyleSheet.create({
 
   bpmReadout: {
     marginTop: Spacing.xxl,
+  },
+
+  driftRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.xs,
+    marginTop: Spacing.sm,
+  },
+
+  driftLabel: {
+    display: "flex",
+    alignItems: "center",
   },
 
   songName: {
