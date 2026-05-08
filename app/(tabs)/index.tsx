@@ -54,7 +54,7 @@ function BackgroundGlow({ drift }: BackgroundGlowProps) {
         <RadialGradient
           c={vec(cx, cy)}
           r={width * 0.72}
-          colors={[`${color}30`, `${color}12`, `${color}00`]}
+          colors={[`${color}70`, `${color}25`, `${color}05`, `${color}00`]}
         />
       </Rect>
     </Canvas>
