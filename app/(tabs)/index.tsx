@@ -1,16 +1,21 @@
 import React, { useMemo, useState } from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, useWindowDimensions } from "react-native";
+import { Canvas, RadialGradient, Rect, vec } from "@shopify/react-native-skia";
 import { ThemedView } from "@/components/themed-view";
 import { Header } from "@/components/home/header";
-import { BpmReadout, getDrift } from "@/components/home/bpm-readout";
+import {
+  BpmReadout,
+  getDrift,
+  TempoDrift,
+} from "@/components/home/bpm-readout";
 import {
   SongControls,
   SongControlsAction,
 } from "@/components/home/song-controls";
 import { TempoHistory } from "@/components/home/tempo-history";
-import { Spacing } from "@/constants/theme";
+import { Palette, Spacing } from "@/constants/theme";
 
-// TODO: replace with real data from the backend
+// ─── Placeholder — replace with real detection hook ──────────────────────────
 const MOCK_BPM = 122;
 const MOCK_TARGET_BPM = 120;
 const MOCK_SONG_NAME = "Song Name";
@@ -18,6 +23,45 @@ const MOCK_HISTORY = Array.from({ length: 20 }, (_, i) => ({
   index: i,
   bpm: MOCK_TARGET_BPM + (Math.random() * 6 - 3),
 }));
+
+// ─── Background glow ─────────────────────────────────────────────────────────
+
+function getGlowColor(drift: TempoDrift): string {
+  switch (drift) {
+    case "speeding-up":
+      return Palette.warning;
+    case "slowing-down":
+      return Palette.danger;
+    case "maintaining":
+      return Palette.accent;
+  }
+}
+
+type BackgroundGlowProps = { drift: TempoDrift };
+
+function BackgroundGlow({ drift }: BackgroundGlowProps) {
+  const { width, height } = useWindowDimensions();
+  const color = getGlowColor(drift);
+  const cx = width / 2;
+  const cy = height * 0.38; // sit roughly behind the BPM number
+
+  return (
+    <Canvas
+      style={[StyleSheet.absoluteFill, { width, height }]}
+      pointerEvents="none"
+    >
+      <Rect x={0} y={0} width={width} height={height}>
+        <RadialGradient
+          c={vec(cx, cy)}
+          r={width * 0.72}
+          colors={[`${color}30`, `${color}12`, `${color}00`]}
+        />
+      </Rect>
+    </Canvas>
+  );
+}
+
+// ─── Screen ──────────────────────────────────────────────────────────────────
 
 export default function HomeScreen() {
   const [bpm] = useState(MOCK_BPM);
@@ -42,6 +86,7 @@ export default function HomeScreen() {
 
   return (
     <ThemedView style={styles.container}>
+      <BackgroundGlow drift={drift} />
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
