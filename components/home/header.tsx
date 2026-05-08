@@ -8,7 +8,7 @@ import Animated, {
   withSequence,
   Easing,
 } from "react-native-reanimated";
-import { ThemedText } from "@/components/themed-text";
+import { ThemedText } from "@/components/ui/themed-text";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { Spacing } from "@/constants/theme";
 

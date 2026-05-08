@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { ThemedText } from "@/components/themed-text";
+import { ThemedText } from "@/components/ui/themed-text";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { Colors, Palette, Spacing, TypeScale } from "@/constants/theme";
 import { TrendingUp, TrendingDown, Minus } from "lucide-react-native";

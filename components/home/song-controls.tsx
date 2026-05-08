@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Play, Pause, ChevronLeft, ChevronRight } from "lucide-react-native";
 import * as Haptics from "expo-haptics";
-import { ThemedText } from "@/components/themed-text";
+import { ThemedText } from "@/components/ui/themed-text";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { Spacing, Radius } from "@/constants/theme";
 

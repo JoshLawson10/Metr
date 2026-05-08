@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { ScrollView, StyleSheet, useWindowDimensions } from "react-native";
 import { Canvas, RadialGradient, Rect, vec } from "@shopify/react-native-skia";
-import { ThemedView } from "@/components/themed-view";
+import { ThemedView } from "@/components/ui/themed-view";
 import { Header } from "@/components/home/header";
 import {
   BpmReadout,

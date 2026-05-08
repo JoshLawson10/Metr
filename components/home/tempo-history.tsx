@@ -6,7 +6,7 @@ import {
   vec,
   useFont,
 } from "@shopify/react-native-skia";
-import { ThemedText } from "@/components/themed-text";
+import { ThemedText } from "@/components/ui/themed-text";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { Palette, Radius, Spacing } from "@/constants/theme";
 
@@ -74,10 +74,7 @@ export function TempoHistory({ data, targetBPM }: TempoHistoryProps) {
                 <SkiaLinearGradient
                   start={vec(0, chartBounds.top)}
                   end={vec(0, chartBounds.bottom)}
-                  colors={[
-                    `${Palette.accent}72`,
-                    `${Palette.accent}0D`,
-                  ]}
+                  colors={[`${Palette.accent}72`, `${Palette.accent}0D`]}
                 />
               </Area>
               <Line
