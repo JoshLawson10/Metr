@@ -7,10 +7,16 @@ import {
   useFont,
 } from "@shopify/react-native-skia";
 import { ThemedText } from "@/components/ui/themed-text";
+import { GlassCard } from "../ui/glass-card";
 import { useThemeColor } from "@/hooks/use-theme-color";
-import { Palette, Radius, Spacing } from "@/constants/theme";
+import { Palette, Spacing } from "@/constants/theme";
+
+// ─── Constants ────────────────────────────────────────────────────────────────
 
 const CHART_HEIGHT = 160;
+const BORDER_RADIUS = 16;
+
+// ─── Types ────────────────────────────────────────────────────────────────────
 
 type TempoDataPoint = {
   index: number;
@@ -22,8 +28,9 @@ type TempoHistoryProps = {
   targetBPM: number;
 };
 
+// ─── Component ────────────────────────────────────────────────────────────────
+
 export function TempoHistory({ data, targetBPM }: TempoHistoryProps) {
-  const glassColor = useThemeColor({}, "glass");
   const borderFocusColor = useThemeColor({}, "borderFocus");
   const textSecondaryColor = useThemeColor({}, "textSecondary");
 
@@ -37,67 +44,82 @@ export function TempoHistory({ data, targetBPM }: TempoHistoryProps) {
   );
 
   return (
-    <View style={[styles.card, { backgroundColor: glassColor }]}>
-      <ThemedText type="monoBold" size="p">
-        HISTORY
-      </ThemedText>
-      <View style={styles.chartContainer}>
-        <CartesianChart
-          data={data}
-          xKey="index"
-          yKeys={["bpm"]}
-          padding={12}
-          domain={{ y: [minBPM, maxBPM] }}
-          yAxis={[
-            {
-              font,
-              tickValues,
-              labelOffset: 8,
-              lineWidth: 1,
-              lineColor: borderFocusColor,
-              labelColor: textSecondaryColor,
-              formatYLabel: (value) => {
-                const delta = value - targetBPM;
-                if (delta === 0) return `${targetBPM}`;
-                return delta > 0 ? `+${delta}` : `${delta}`;
+    <View style={styles.wrapper}>
+      <GlassCard style={{ padding: Spacing.lg }}>
+        <ThemedText type="monoBold" size="p">
+          HISTORY
+        </ThemedText>
+        <View style={styles.chartContainer}>
+          <CartesianChart
+            data={data}
+            xKey="index"
+            yKeys={["bpm"]}
+            padding={12}
+            domain={{ y: [minBPM - 0.1, maxBPM] }}
+            yAxis={[
+              {
+                font,
+                tickValues,
+                labelOffset: 8,
+                lineWidth: 1,
+                lineColor: borderFocusColor,
+                labelColor: textSecondaryColor,
+                formatYLabel: (value) => {
+                  const delta = value - targetBPM;
+                  if (delta === 0) return `${targetBPM}`;
+                  return delta > 0 ? `+${delta}` : `${delta}`;
+                },
               },
-            },
-          ]}
-        >
-          {({ points, chartBounds }) => (
-            <>
-              <Area
-                points={points.bpm}
-                y0={chartBounds.bottom}
-                animate={{ type: "timing", duration: 300 }}
-              >
-                <SkiaLinearGradient
-                  start={vec(0, chartBounds.top)}
-                  end={vec(0, chartBounds.bottom)}
-                  colors={[`${Palette.accent}72`, `${Palette.accent}0D`]}
+            ]}
+          >
+            {({ points, chartBounds }) => (
+              <>
+                <Area
+                  points={points.bpm}
+                  y0={chartBounds.bottom}
+                  animate={{ type: "timing", duration: 300 }}
+                >
+                  <SkiaLinearGradient
+                    start={vec(0, chartBounds.top)}
+                    end={vec(0, chartBounds.bottom)}
+                    colors={[`${Palette.accent}72`, `${Palette.accent}0D`]}
+                  />
+                </Area>
+                <Line
+                  points={points.bpm}
+                  animate={{ type: "timing" }}
+                  color={Palette.accent}
+                  strokeWidth={2}
                 />
-              </Area>
-              <Line
-                points={points.bpm}
-                animate={{ type: "timing" }}
-                color={Palette.accent}
-                strokeWidth={2}
-              />
-            </>
-          )}
-        </CartesianChart>
-      </View>
+              </>
+            )}
+          </CartesianChart>
+        </View>
+      </GlassCard>
     </View>
   );
 }
 
+// ─── Styles ───────────────────────────────────────────────────────────────────
+
 const styles = StyleSheet.create({
-  card: {
-    marginTop: Spacing.xxl,
-    borderRadius: Radius.md,
-    borderColor: "rgba(255,255,255,0.08)",
-    borderWidth: 0.5,
+  wrapper: {
     width: "100%",
+    borderRadius: BORDER_RADIUS,
+    overflow: "hidden",
+  },
+  blur: {
+    borderRadius: BORDER_RADIUS,
+  },
+  specular: {
+    borderRadius: BORDER_RADIUS,
+  },
+  border: {
+    borderRadius: BORDER_RADIUS,
+    borderWidth: 0.75,
+    borderColor: "rgba(255,255,255,0.18)",
+  },
+  content: {
     padding: Spacing.lg,
   },
   chartContainer: {

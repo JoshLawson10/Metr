@@ -76,7 +76,6 @@ export function SongControls({
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    marginTop: Spacing.xxl,
     width: "100%",
   },
   songName: {

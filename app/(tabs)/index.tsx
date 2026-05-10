@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
-import { ScrollView, StyleSheet, useWindowDimensions } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Canvas, RadialGradient, Rect, vec } from "@shopify/react-native-skia";
 import { ThemedView } from "@/components/ui/themed-view";
 import { Header } from "@/components/home/header";
@@ -43,8 +44,7 @@ function BackgroundGlow({ drift }: BackgroundGlowProps) {
   const { width, height } = useWindowDimensions();
   const color = getGlowColor(drift);
   const cx = width / 2;
-  const cy = height * 0.38; // sit roughly behind the BPM number
-
+  const cy = height * 0.65;
   return (
     <Canvas
       style={[StyleSheet.absoluteFill, { width, height }]}
@@ -87,11 +87,8 @@ export default function HomeScreen() {
   return (
     <ThemedView style={styles.container}>
       <BackgroundGlow drift={drift} />
-      <ScrollView
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-      >
-        <Header />
+      <Header />
+      <View style={styles.content}>
         <BpmReadout bpm={bpm} drift={drift} />
         <SongControls
           songName={MOCK_SONG_NAME}
@@ -99,7 +96,7 @@ export default function HomeScreen() {
           onPress={handleSongControl}
         />
         <TempoHistory data={MOCK_HISTORY} targetBPM={targetBPM} />
-      </ScrollView>
+      </View>
     </ThemedView>
   );
 }
@@ -107,9 +104,14 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: Spacing.lg,
+    paddingBottom: Spacing.xxl * 2.5,
   },
-  scrollContent: {
-    paddingHorizontal: Spacing.xl,
-    paddingBottom: Spacing.xxl,
+
+  content: {
+    justifyContent: "flex-end",
+    alignItems: "center",
+    flex: 1,
+    gap: Spacing.xxl,
   },
 });

@@ -82,6 +82,28 @@ export const Colors = {
   },
 } as const;
 
+// ─── Glass tokens ────────────────────────────────────────────────────────────
+export const Glass = {
+  background: "rgba(255,255,255,0.08)",
+
+  overlayStrong: "rgba(255,255,255,0.16)",
+  overlayMedium: "rgba(255,255,255,0.10)",
+  overlayLight: "rgba(255,255,255,0.04)",
+
+  border: "rgba(255,255,255,0.14)",
+
+  specularStrong: "rgba(255,255,255,0.38)",
+  specularSoft: "rgba(255,255,255,0.12)",
+
+  shadow: "rgba(0,0,0,0.25)",
+
+  blur: {
+    sm: 24,
+    md: 48,
+    lg: 72,
+  },
+} as const;
+
 // ─── Typography ──────────────────────────────────────────────────────────────
 // Both fonts must be loaded via expo-font before use (see app/_layout.tsx).
 // Use the Fonts.body / Fonts.mono references below in StyleSheet definitions.
