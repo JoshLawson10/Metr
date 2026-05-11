@@ -8,13 +8,13 @@ export default function TabLayout() {
         <Label>Home</Label>
         <Icon sf="house.fill" drawable="custom_android_drawable" />
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="library">
-        <Label>Library</Label>
-        <Icon sf="book.fill" drawable="custom_android_drawable" />
-      </NativeTabs.Trigger>
       <NativeTabs.Trigger name="setlist">
         <Label>Setlist</Label>
         <Icon sf="list.bullet" drawable="custom_android_drawable" />
+      </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="library">
+        <Label>Library</Label>
+        <Icon sf="book.fill" drawable="custom_android_drawable" />
       </NativeTabs.Trigger>
     </NativeTabs>
   );
