@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from "react";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Canvas, RadialGradient, Rect, vec } from "@shopify/react-native-skia";
 import { ThemedView } from "@/components/ui/themed-view";
 import { Header } from "@/components/home/header";
