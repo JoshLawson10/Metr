@@ -64,6 +64,7 @@ export default function HomeScreen() {
       <BackgroundGlow
         width={width}
         height={height}
+        pos={{ x: width / 2, y: height / 2 }}
         color={getGlowColor(drift)}
       />
       <Header />
