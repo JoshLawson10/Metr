@@ -3,7 +3,10 @@ import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Play, Pause, ChevronLeft, ChevronRight } from "lucide-react-native";
 import * as Haptics from "expo-haptics";
+
 import { ThemedText } from "@/components/ui/themed-text";
+import { GlassButton } from "@/components/ui/glass-button";
+
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { Spacing, Radius } from "@/constants/theme";
 
@@ -20,7 +23,6 @@ export function SongControls({
   isDetecting,
   onPress,
 }: SongControlsProps) {
-  const glassColor = useThemeColor({}, "glass");
   const tint = useThemeColor({}, "tint");
   const tintSecondary = useThemeColor({}, "tintSecondary");
 
@@ -34,14 +36,11 @@ export function SongControls({
       <ThemedText type="body" size="h2" style={styles.songName}>
         {songName}
       </ThemedText>
+
       <View style={styles.controlRow}>
-        <TouchableOpacity
-          style={[styles.controlBtn, { backgroundColor: glassColor }]}
-          onPress={() => handlePress("prev")}
-          activeOpacity={0.7}
-        >
+        <GlassButton size={40} onPress={() => handlePress("prev")}>
           <ChevronLeft size={16} color="white" strokeWidth={1} />
-        </TouchableOpacity>
+        </GlassButton>
 
         <TouchableOpacity
           onPress={() => handlePress("play-pause")}
@@ -61,13 +60,9 @@ export function SongControls({
           </LinearGradient>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={[styles.controlBtn, { backgroundColor: glassColor }]}
-          onPress={() => handlePress("next")}
-          activeOpacity={0.7}
-        >
+        <GlassButton size={40} onPress={() => handlePress("next")}>
           <ChevronRight size={16} color="white" strokeWidth={1} />
-        </TouchableOpacity>
+        </GlassButton>
       </View>
     </View>
   );
@@ -78,23 +73,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
   },
+
   songName: {
     textAlign: "center",
     marginBottom: Spacing.lg,
   },
+
   controlRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     gap: Spacing.xl,
   },
-  controlBtn: {
-    width: 40,
-    height: 40,
-    borderRadius: Radius.full,
-    justifyContent: "center",
-    alignItems: "center",
-  },
+
   playBtn: {
     width: 60,
     height: 60,
