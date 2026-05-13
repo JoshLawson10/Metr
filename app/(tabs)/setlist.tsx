@@ -1,9 +1,11 @@
-import { StyleSheet, View, useWindowDimensions } from "react-native";
-import { ThemedView } from "@/components/ui/themed-view";
-import { ThemedText } from "@/components/ui/themed-text";
-import { GlassButton } from "@/components/ui/glass-button";
+import { NoSetlistPlaceholder } from "@/components/setlist/no-setlist-placeholder";
 import { BackgroundGlow } from "@/components/ui/background-glow";
+import { GlassButton } from "@/components/ui/glass-button";
+import { ThemedText } from "@/components/ui/themed-text";
+import { ThemedView } from "@/components/ui/themed-view";
+import { Spacing } from "@/constants/theme";
 import { Plus } from "lucide-react-native";
+import { StyleSheet, View, useWindowDimensions } from "react-native";
 
 export default function SetlistScreen() {
   const { width, height } = useWindowDimensions();
@@ -26,6 +28,7 @@ export default function SetlistScreen() {
           <Plus size={20} strokeWidth={3} color="#fff" />
         </GlassButton>
       </View>
+      <NoSetlistPlaceholder />
     </ThemedView>
   );
 }
@@ -33,6 +36,8 @@ export default function SetlistScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: Spacing.lg,
+    paddingBottom: Spacing.xxl * 2.5,
   },
 
   header: {
