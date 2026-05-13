@@ -1,7 +1,7 @@
-import React from "react";
-import { View, StyleSheet, ViewStyle, StyleProp } from "react-native";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
+import React from "react";
+import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 
 import { Glass, Radius } from "@/constants/theme";
 
@@ -40,8 +40,8 @@ export function GlassCard({
       {/* Specular / inner highlight */}
       <LinearGradient
         colors={[
-          "rgba(255,255,255,0.22)",
-          "rgba(255,255,255,0.08)",
+          "rgba(255,255,255,0.1)",
+          "rgba(255,255,255,0.05)",
           "rgba(255,255,255,0.02)",
           "transparent",
         ]}
