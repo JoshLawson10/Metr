@@ -1,5 +1,4 @@
 import { BlurView } from "expo-blur";
-import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
 import {
   StyleProp,
@@ -91,7 +90,7 @@ export function GlassButton({
         ]}
       >
         <BlurView
-          intensity={isPressed ? 32 : 24}
+          intensity={isPressed ? 95 : 85}
           tint="dark"
           style={[
             StyleSheet.absoluteFillObject,
@@ -100,68 +99,6 @@ export function GlassButton({
             },
           ]}
           pointerEvents="none"
-        />
-
-        <LinearGradient
-          colors={
-            isPressed
-              ? [
-                  "rgba(255,255,255,0.28)",
-                  "rgba(255,255,255,0.12)",
-                  "rgba(255,255,255,0.04)",
-                  "transparent",
-                ]
-              : [
-                  "rgba(255,255,255,0.22)",
-                  "rgba(255,255,255,0.08)",
-                  "rgba(255,255,255,0.02)",
-                  "transparent",
-                ]
-          }
-          start={{ x: 0, y: 0 }}
-          end={{ x: 0.7, y: 0.7 }}
-          style={[
-            StyleSheet.absoluteFillObject,
-            styles.specular,
-            {
-              borderRadius: r,
-            },
-          ]}
-          pointerEvents="none"
-        />
-
-        <View
-          pointerEvents="none"
-          style={[
-            StyleSheet.absoluteFillObject,
-            {
-              borderRadius: r,
-              borderTopWidth: 1,
-              borderLeftWidth: 1,
-              borderColor: isPressed
-                ? "rgba(255,255,255,0.36)"
-                : "rgba(255,255,255,0.28)",
-              opacity: 0.9,
-            },
-          ]}
-        />
-
-        <View
-          pointerEvents="none"
-          style={[
-            StyleSheet.absoluteFillObject,
-            {
-              borderRadius: r,
-
-              shadowColor: "#FFFFFF",
-              shadowOpacity: isPressed ? 0.25 : 0.18,
-              shadowRadius: 8,
-              shadowOffset: {
-                width: 0,
-                height: 0,
-              },
-            },
-          ]}
         />
 
         <View
@@ -188,8 +125,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
 
-    backgroundColor: "rgba(255,255,255,0.05)",
-
     borderWidth: 1,
     borderColor: Glass.border,
 
@@ -202,11 +137,6 @@ const styles = StyleSheet.create({
     shadowRadius: 24,
 
     elevation: 20,
-  },
-
-  specular: {
-    position: "absolute",
-    overflow: "hidden",
   },
 
   content: {

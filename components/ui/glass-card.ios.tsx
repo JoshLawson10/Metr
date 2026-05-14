@@ -1,5 +1,4 @@
 import { BlurView } from "expo-blur";
-import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import Animated, {
@@ -60,7 +59,7 @@ export function GlassCard({
   const content = (
     <View style={[styles.wrapper, { borderRadius: r }, style]}>
       <BlurView
-        intensity={isPressed ? 36 : 28}
+        intensity={isPressed ? 95 : 85}
         tint="dark"
         style={[
           StyleSheet.absoluteFillObject,
@@ -69,68 +68,6 @@ export function GlassCard({
           },
         ]}
         pointerEvents="none"
-      />
-
-      <LinearGradient
-        colors={
-          isPressed
-            ? [
-                "rgba(255,255,255,0.15)",
-                "rgba(255,255,255,0.08)",
-                "rgba(255,255,255,0.02)",
-                "transparent",
-              ]
-            : [
-                "rgba(255,255,255,0.1)",
-                "rgba(255,255,255,0.05)",
-                "rgba(255,255,255,0.02)",
-                "transparent",
-              ]
-        }
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0.7, y: 0.7 }}
-        style={[
-          StyleSheet.absoluteFillObject,
-          styles.specular,
-          {
-            borderRadius: r,
-          },
-        ]}
-        pointerEvents="none"
-      />
-
-      <View
-        pointerEvents="none"
-        style={[
-          StyleSheet.absoluteFillObject,
-          {
-            borderRadius: r,
-            borderTopWidth: 1,
-            borderLeftWidth: 1,
-            borderColor: isPressed
-              ? "rgba(255,255,255,0.36)"
-              : "rgba(255,255,255,0.28)",
-            opacity: 0.9,
-          },
-        ]}
-      />
-
-      <View
-        pointerEvents="none"
-        style={[
-          StyleSheet.absoluteFillObject,
-          {
-            borderRadius: r,
-
-            shadowColor: "#FFFFFF",
-            shadowOpacity: isPressed ? 0.24 : 0.18,
-            shadowRadius: 8,
-            shadowOffset: {
-              width: 0,
-              height: 0,
-            },
-          },
-        ]}
       />
 
       <View
@@ -182,10 +119,5 @@ const styles = StyleSheet.create({
     shadowRadius: 24,
 
     elevation: 20,
-  },
-
-  specular: {
-    position: "absolute",
-    overflow: "hidden",
   },
 });
