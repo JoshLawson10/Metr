@@ -5,10 +5,30 @@ import { ThemedText } from "@/components/ui/themed-text";
 import { ThemedView } from "@/components/ui/themed-view";
 import { Spacing } from "@/constants/theme";
 import { Plus } from "lucide-react-native";
-import { StyleSheet, View, useWindowDimensions } from "react-native";
+import { ActionSheetIOS, StyleSheet, View, useWindowDimensions } from "react-native";
 
 export default function SetlistScreen() {
   const { width, height } = useWindowDimensions();
+
+  const handlePlusPress = () => {
+    const options = ["Cancel", "Add custom song", "Add from library"];
+    const cancelButtonIndex = 0;
+
+    ActionSheetIOS.showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+        userInterfaceStyle: "dark",
+      },
+      (buttonIndex) => {
+        if (buttonIndex === 1) {
+          console.log("Add custom song pressed");
+        } else if (buttonIndex === 2) {
+          console.log("Add from library pressed");
+        }
+      }
+    );
+  };
 
   return (
     <ThemedView style={styles.container}>
@@ -20,11 +40,7 @@ export default function SetlistScreen() {
       />
       <View style={styles.header}>
         <ThemedText size="h1">Setlist</ThemedText>
-        <GlassButton
-          onPress={() => {
-            console.log("Setlist button pressed");
-          }}
-        >
+        <GlassButton onPress={handlePlusPress}>
           <Plus size={20} strokeWidth={3} color="#fff" />
         </GlassButton>
       </View>
