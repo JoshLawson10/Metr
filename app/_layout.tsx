@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import {
   DarkTheme,
   DefaultTheme,
@@ -6,7 +5,6 @@ import {
 } from "@react-navigation/native";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import * as SplashScreen from "expo-splash-screen";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/use-color-scheme";
@@ -28,6 +26,7 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="add-custom-song" />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>

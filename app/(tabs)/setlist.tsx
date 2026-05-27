@@ -4,10 +4,17 @@ import { GlassButton } from "@/components/ui/glass-button";
 import { ThemedText } from "@/components/ui/themed-text";
 import { ThemedView } from "@/components/ui/themed-view";
 import { Spacing } from "@/constants/theme";
+import { useRouter } from "expo-router";
 import { Plus } from "lucide-react-native";
-import { ActionSheetIOS, StyleSheet, View, useWindowDimensions } from "react-native";
+import {
+  ActionSheetIOS,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+} from "react-native";
 
 export default function SetlistScreen() {
+  const router = useRouter();
   const { width, height } = useWindowDimensions();
 
   const handlePlusPress = () => {
@@ -22,11 +29,11 @@ export default function SetlistScreen() {
       },
       (buttonIndex) => {
         if (buttonIndex === 1) {
-          console.log("Add custom song pressed");
+          router.push("/add-custom-song");
         } else if (buttonIndex === 2) {
-          console.log("Add from library pressed");
+          router.push("/library");
         }
-      }
+      },
     );
   };
 
