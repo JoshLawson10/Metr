@@ -1,3 +1,5 @@
+import { Radius } from "@/constants/theme";
+import { BlurView } from "expo-blur";
 import React from "react";
 import {
   Modal,
@@ -6,9 +8,7 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
-import { BlurView } from "expo-blur";
 import { ThemedText } from "./themed-text";
-import { Radius } from "@/constants/theme";
 
 type MenuItem = {
   label: string;
@@ -56,7 +56,7 @@ export function Menu({ visible, items, onDismiss, position }: MenuProps) {
                   index !== items.length - 1 && styles.menuItemBorder,
                 ]}
               >
-                <ThemedText size="lg">{item.label}</ThemedText>
+                <ThemedText size="h1">{item.label}</ThemedText>
               </Pressable>
             ))}
           </BlurView>
