@@ -4,6 +4,7 @@ import { Header } from "@/components/ui/header";
 import { ThemedSafeAreaView } from "@/components/ui/themed-safe-area-view";
 import { Spacing } from "@/constants/theme";
 import { useRouter } from "expo-router";
+import { PlusIcon } from "lucide-react-native";
 import { ActionSheetIOS, StyleSheet, useWindowDimensions } from "react-native";
 
 export default function SetlistScreen() {
@@ -41,10 +42,8 @@ export default function SetlistScreen() {
 
       <Header
         headerText="Setlist"
-        textAlignment="left"
-        leftButton={null}
         rightButton={{
-          text: "+",
+          icon: <PlusIcon size={18} strokeWidth={3} color="#fff" />,
           action: handlePlusPress,
         }}
       />

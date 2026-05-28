@@ -2,10 +2,12 @@ import { GlassButton } from "@/components/ui/glass-button";
 import { ThemedText } from "@/components/ui/themed-text";
 import { ThemedView } from "@/components/ui/themed-view";
 import { Spacing } from "@/constants/theme";
+import { ReactNode } from "react";
 import { StyleSheet, View } from "react-native";
 
 type HeaderButton = {
-  text: string;
+  icon?: ReactNode;
+  text?: string;
   action: () => void;
 };
 
@@ -22,13 +24,22 @@ export function Header({
   headerText,
   textAlignment = "left",
 }: HeaderProps) {
+  const renderButton = (button: HeaderButton | null | undefined) => {
+    if (!button) {
+      return null;
+    }
+
+    return (
+      <GlassButton onPress={button.action} style={styles.button}>
+        {button.icon}
+
+        {button.text ? <ThemedText>{button.text}</ThemedText> : null}
+      </GlassButton>
+    );
+  };
   return (
     <ThemedView style={styles.container}>
-      {leftButton ? (
-        <GlassButton onPress={leftButton.action}>
-          <ThemedText>{leftButton.text}</ThemedText>
-        </GlassButton>
-      ) : null}
+      {renderButton(leftButton)}
 
       <View style={styles.center}>
         <ThemedText
@@ -44,11 +55,7 @@ export function Header({
         </ThemedText>
       </View>
 
-      {rightButton ? (
-        <GlassButton onPress={rightButton.action}>
-          <ThemedText>{rightButton.text}</ThemedText>
-        </GlassButton>
-      ) : null}
+      {renderButton(rightButton)}
     </ThemedView>
   );
 }
@@ -71,6 +78,11 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    paddingVertical: 6,
+    minWidth: 32,
+    minHeight: 32,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    gap: Spacing.xs,
   },
 });
