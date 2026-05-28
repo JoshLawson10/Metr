@@ -1,17 +1,10 @@
 import { NoSetlistPlaceholder } from "@/components/setlist/no-setlist-placeholder";
 import { BackgroundGlow } from "@/components/ui/background-glow";
-import { GlassButton } from "@/components/ui/glass-button";
-import { ThemedText } from "@/components/ui/themed-text";
-import { ThemedView } from "@/components/ui/themed-view";
+import { Header } from "@/components/ui/header";
+import { ThemedSafeAreaView } from "@/components/ui/themed-safe-area-view";
 import { Spacing } from "@/constants/theme";
 import { useRouter } from "expo-router";
-import { Plus } from "lucide-react-native";
-import {
-  ActionSheetIOS,
-  StyleSheet,
-  View,
-  useWindowDimensions,
-} from "react-native";
+import { ActionSheetIOS, StyleSheet, useWindowDimensions } from "react-native";
 
 export default function SetlistScreen() {
   const router = useRouter();
@@ -38,37 +31,32 @@ export default function SetlistScreen() {
   };
 
   return (
-    <ThemedView style={styles.container}>
+    <ThemedSafeAreaView style={styles.container}>
       <BackgroundGlow
         width={width}
         height={height}
         pos={{ x: width / 2, y: height / 2 }}
         color="#4F46E5"
       />
-      <View style={styles.header}>
-        <ThemedText size="h1">Setlist</ThemedText>
-        <GlassButton onPress={handlePlusPress}>
-          <Plus size={20} strokeWidth={3} color="#fff" />
-        </GlassButton>
-      </View>
+
+      <Header
+        headerText="Setlist"
+        textAlignment="left"
+        leftButton={null}
+        rightButton={{
+          text: "+",
+          action: handlePlusPress,
+        }}
+      />
+
       <NoSetlistPlaceholder />
-    </ThemedView>
+    </ThemedSafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: Spacing.lg,
     paddingBottom: Spacing.xxl * 2.5,
-  },
-
-  header: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 20,
-    paddingVertical: 10,
   },
 });

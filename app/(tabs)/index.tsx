@@ -1,21 +1,20 @@
-import React, { useMemo, useState } from "react";
-import { StyleSheet, useWindowDimensions, View } from "react-native";
-import { ThemedView } from "@/components/ui/themed-view";
-import { Header } from "@/components/home/header";
 import {
   BpmReadout,
   getDrift,
   TempoDrift,
 } from "@/components/home/bpm-readout";
+import { Header } from "@/components/home/header";
 import {
   SongControls,
   SongControlsAction,
 } from "@/components/home/song-controls";
 import { TempoHistory } from "@/components/home/tempo-history";
-import { Palette, Spacing } from "@/constants/theme";
 import { BackgroundGlow } from "@/components/ui/background-glow";
+import { ThemedSafeAreaView } from "@/components/ui/themed-safe-area-view";
+import { Palette, Spacing } from "@/constants/theme";
+import React, { useMemo, useState } from "react";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 
-// ─── Placeholder — replace with real detection hook ──────────────────────────
 const MOCK_BPM = 122;
 const MOCK_TARGET_BPM = 120;
 const MOCK_SONG_NAME = "Song Name";
@@ -34,7 +33,6 @@ function getGlowColor(drift: TempoDrift): string {
       return Palette.accent;
   }
 }
-// ─── Screen ──────────────────────────────────────────────────────────────────
 
 export default function HomeScreen() {
   const [bpm] = useState(MOCK_BPM);
@@ -60,7 +58,7 @@ export default function HomeScreen() {
   };
 
   return (
-    <ThemedView style={styles.container}>
+    <ThemedSafeAreaView style={styles.container}>
       <BackgroundGlow
         width={width}
         height={height}
@@ -77,7 +75,7 @@ export default function HomeScreen() {
         />
         <TempoHistory data={MOCK_HISTORY} targetBPM={targetBPM} />
       </View>
-    </ThemedView>
+    </ThemedSafeAreaView>
   );
 }
 
