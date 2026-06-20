@@ -3,6 +3,7 @@ import { Header } from "@/components/ui/header";
 import { ThemedSafeAreaView } from "@/components/ui/themed-safe-area-view";
 import { ThemedText } from "@/components/ui/themed-text";
 import { Spacing } from "@/constants/theme";
+import { useOrientationLock } from "@/hooks/use-orientation-lock";
 
 import { useRouter } from "expo-router";
 import { CheckIcon, ChevronLeftIcon } from "lucide-react-native";
@@ -16,6 +17,8 @@ import {
 } from "react-native";
 
 export default function AddCustomSongScreen() {
+  useOrientationLock(true);
+
   const router = useRouter();
   const { width, height } = useWindowDimensions();
 

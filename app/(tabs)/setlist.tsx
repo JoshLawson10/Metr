@@ -5,9 +5,12 @@ import { ThemedSafeAreaView } from "@/components/ui/themed-safe-area-view";
 import { Spacing } from "@/constants/theme";
 import { useRouter } from "expo-router";
 import { PlusIcon } from "lucide-react-native";
+import { useOrientationLock } from "@/hooks/use-orientation-lock";
 import { ActionSheetIOS, StyleSheet, useWindowDimensions } from "react-native";
 
 export default function SetlistScreen() {
+  useOrientationLock(true);
+
   const router = useRouter();
   const { width, height } = useWindowDimensions();
 

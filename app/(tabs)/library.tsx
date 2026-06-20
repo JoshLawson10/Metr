@@ -5,6 +5,7 @@ import { Header } from "@/components/ui/header";
 import { ThemedSafeAreaView } from "@/components/ui/themed-safe-area-view";
 import { ThemedText } from "@/components/ui/themed-text";
 import { Palette, Radius, Spacing, TypeScale } from "@/constants/theme";
+import { useOrientationLock } from "@/hooks/use-orientation-lock";
 import { useRouter } from "expo-router";
 import { ChevronLeftIcon, PlusIcon } from "lucide-react-native";
 import { useState } from "react";
@@ -99,6 +100,8 @@ const MOCK_SONGS: Song[] = [
 ];
 
 export default function LibraryScreen() {
+  useOrientationLock(true);
+
   const router = useRouter();
   const { width, height } = useWindowDimensions();
   const [searchQuery, setSearchQuery] = useState("");
